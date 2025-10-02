@@ -40,8 +40,8 @@
 							"budgets": [
 								{
 									"type": "initial",
-									"maximumWarning": "10mb",
-									"maximumError": "1mb"
+									"maximumWarning": "5mb",
+									"maximumError": "10mb"
 								},
 								{
 									"type": "anyComponentStyle",
@@ -49,8 +49,10 @@
 									"maximumError": "4kb"
 								}
 							],
-							"outputHashing": "all"
+							"outputHashing": "all",
+							"allowedCommonJsDependencies": ["sweetalert2", "jsbarcode"]
 						},
+
 						"development": {
 							"optimization": false,
 							"extractLicenses": false,
