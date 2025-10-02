@@ -2,21 +2,21 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { AuthService } from '../../../../core/services/common/auth.service';
-import { CheckStatusResponse } from '../../../../core/interfaces/get-status.interface';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzBadgeModule } from 'ng-zorro-antd/badge';
-import { NzAvatarModule } from 'ng-zorro-antd/avatar';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
-import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import Swal from 'sweetalert2';
+import { CheckStatusResponse } from '../../../../core/interfaces/get-status.interface';
+import { AuthService } from '../../../../core/services/common/auth.service';
 import { SaleService } from '../../../../core/services/sale.service';
-import { NotificationService } from '../../../../shared/services/notificacion.service';
 import { ERole } from '../../../../core/types/roles.enum';
+import { NotificationService } from '../../../../shared/services/notificacion.service';
 
 @Component({
 	selector: 'app-main-layout',

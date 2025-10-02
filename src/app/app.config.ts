@@ -2,16 +2,16 @@ import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter, withComponentInputBinding, withHashLocation, withViewTransitions } from '@angular/router';
 import { provideNzConfig } from 'ng-zorro-antd/core/config';
 
-import { routes } from './app.routes';
-import { provideNzIcons } from './icons-provider';
-import { es_ES, provideNzI18n } from 'ng-zorro-antd/i18n';
+import { registerLocaleData } from '@angular/common';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import es from '@angular/common/locales/es';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { AuthInterceptorHttpService } from './core/interceptors/api.interceptor';
-import es from '@angular/common/locales/es';
-import { registerLocaleData } from '@angular/common';
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
+import { es_ES, provideNzI18n } from 'ng-zorro-antd/i18n';
+import { routes } from './app.routes';
+import { AuthInterceptorHttpService } from './core/interceptors/api.interceptor';
+import { provideNzIcons } from './icons-provider';
 
 registerLocaleData(es);
 
