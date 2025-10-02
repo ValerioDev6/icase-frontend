@@ -1,0 +1,131 @@
+<div>
+	<nz-breadcrumb class="font-bold text-sm" [nzAutoGenerate]="true"> </nz-breadcrumb>
+</div>
+<div class="py-6">
+	<div class="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0">
+		<!-- Título de la sección con icono -->
+		<h3 class="text-xl font-semibold text-gray-800 flex items-center">
+			<svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" viewBox="0 0 24 24" class="mr-2">
+				<path
+					fill="#000000"
+					d="M22 3H2v6h1v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9h1zM4 5h16v2H4zm15 15H5V9h14zM9 11h6a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2"
+				/>
+			</svg>
+			Ajustes de Inventario
+		</h3>
+
+		<div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
+			<nz-select [(ngModel)]="search" (ngModelChange)="searchTo()" class="w-48" nzPlaceHolder="Filtrar por tipo">
+				<nz-option nzValue="" nzLabel="Todos"></nz-option>
+				<nz-option nzValue="INCREMENTO" nzLabel="Incremento"></nz-option>
+				<nz-option nzValue="DISMINUCION" nzLabel="Disminución"></nz-option>
+			</nz-select>
+			<ng-template #suffixIconSearch>
+				<span nz-icon nzType="search"></span>
+			</ng-template>
+
+			<div class="flex">
+				<button
+					nz-tooltip
+					nzTooltipTitle="Refrescar"
+					class="flex items-center justify-center h-9 px-3 bg-[#22c55e] hover:bg-[#1ea352] transition-colors"
+				>
+					<span nz-icon nzType="sync" nzTheme="outline" class="text-white text-lg font-bold"></span>
+				</button>
+
+				<button
+					nz-tooltip
+					nzTooltipTitle="Subir Archivo"
+					class="flex items-center justify-center h-9 px-3 bg-gray-600 hover:bg-gray-700 transition-colors"
+				>
+					<span nz-icon nzType="upload" nzTheme="outline" class="text-white text-lg font-bold"></span>
+				</button>
+
+				<button
+					nz-tooltip
+					nzTooltipTitle="Descargar PDF"
+					class="flex items-center justify-center h-9 px-3 bg-red-500 hover:bg-red-600 transition-colors"
+				>
+					<span nz-icon nzType="file-pdf" nzTheme="fill" class="text-white text-lg font-bold"></span>
+				</button>
+
+				<button
+					nz-tooltip
+					nzTooltipTitle="Descargar Excel"
+					class="flex items-center justify-center h-9 px-3 bg-[#1D6F42] hover:bg-[#185c37] transition-colors"
+				>
+					<span nz-icon nzType="file-excel" nzTheme="fill" class="text-white text-lg font-bold"></span>
+				</button>
+
+				<button
+					routerLink="../crear-ajuste"
+					class="flex items-center justify-center h-9 px-4 bg-[#6366f1] hover:bg-[#5558e4] transition-colors"
+				>
+					<span nz-icon nzType="plus-circle" nzTheme="fill" class="text-white text-lg font-bold mr-2"></span>
+					<span class="text-white font-medium">Crear</span>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="w-full overflow-hidden">
+		<nz-table
+			#basicTable
+			[nzData]="ajustes"
+			[nzLoading]="loading"
+			[nzPageSize]="limit"
+			[nzTotal]="total"
+			[nzFrontPagination]="false"
+			(nzPageIndexChange)="onPageChange($event)"
+			[nzScroll]="{ x: '1200px' }"
+			nzShowSizeChanger
+			[nzBordered]="true"
+			class="w-full overflow-x-auto"
+		>
+			<thead>
+				<tr class="bg-gray-100">
+					<th nzWidth="100px" class="font-semibold text-gray-700">Fecha</th>
+					<th nzWidth="150px" class="font-semibold text-gray-700">Producto</th>
+					<th nzWidth="120px" class="font-semibold text-gray-700">Tipo Ajuste</th>
+					<th nzWidth="150px" class="font-semibold text-gray-700">Razón</th>
+					<th nzWidth="100px" class="font-semibold text-gray-700">Stock Anterior</th>
+					<th nzWidth="100px" class="font-semibold text-gray-700">Cantidad</th>
+					<th nzWidth="100px" class="font-semibold text-gray-700">Stock Nuevo</th>
+					<th nzWidth="200px" class="font-semibold text-gray-700">Nota</th>
+					<th nzWidth="80px" class="font-semibold text-gray-700">Estado</th>
+				</tr>
+			</thead>
+			<tbody>
+				@for (ajuste of ajustes; track ajuste.id_ajuste) {
+					<tr>
+						<td>{{ ajuste.fecha_ajuste | date: 'dd/MM/yyyy HH:mm' }}</td>
+						<td>{{ ajuste.tb_productos.nombre_producto }}</td>
+						<td>
+							<nz-tag [nzColor]="ajuste.tipo_ajuste === 'INCREMENTO' ? 'green' : 'red'">
+								{{ ajuste.tipo_ajuste === 'INCREMENTO' ? 'Incremento' : 'Disminución' }}
+							</nz-tag>
+						</td>
+						<td>{{ ajuste.razon_ajuste }}</td>
+						<td class="text-right">{{ ajuste.stock_anterior }}</td>
+						<td class="text-right">
+							<span [class]="ajuste.tipo_ajuste === 'INCREMENTO' ? 'text-green-600' : 'text-red-600'">
+								{{ ajuste.tipo_ajuste === 'INCREMENTO' ? '+' : '-' }}{{ ajuste.cantidad_ajuste }}
+							</span>
+						</td>
+						<td class="text-right">{{ ajuste.stock_nuevo }}</td>
+						<td>{{ ajuste.nota }}</td>
+						<td>
+							<nz-tag [nzColor]="ajuste.estado ? 'blue' : 'default'">
+								{{ ajuste.estado ? 'Activo' : 'Inactivo' }}
+							</nz-tag>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</nz-table>
+	</div>
+
+	<div class="mt-4 text-right text-sm text-gray-600">
+		<strong>Total de Productos: {{ total }}</strong>
+	</div>
+</div>

@@ -1,0 +1,123 @@
+<!-- Breadcrumb -->
+<div class="bg-white border-b mb-6">
+	<div class="container mx-auto px-4 py-3">
+		<nz-breadcrumb>
+			<nz-breadcrumb-item>Dashboard</nz-breadcrumb-item>
+			<nz-breadcrumb-item>Informes</nz-breadcrumb-item>
+			<nz-breadcrumb-item>Compras</nz-breadcrumb-item>
+		</nz-breadcrumb>
+	</div>
+</div>
+
+<!-- Main Content -->
+<div class="container mx-auto px-4">
+	<!-- Filters Section -->
+	<div class="bg-white rounded-xl shadow-sm border border-gray-200 mb-6">
+		<div class="p-6">
+			<div class="flex items-center space-x-3 mb-6">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-5 w-5 text-gray-500"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+					/>
+				</svg>
+				<h3 class="text-lg font-semibold text-gray-900">Filtros de Búsqueda</h3>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+				<!-- Date Range Picker -->
+				<div class="space-y-2">
+					<label class="block text-sm font-medium text-gray-700">Rango de Fechas</label>
+					<nz-range-picker
+						[(ngModel)]="dateRange"
+						(ngModelChange)="filterByDateRange()"
+						class="w-full"
+						[nzPlaceHolder]="['Fecha inicio', 'Fecha fin']"
+						nzAllowClear
+					>
+					</nz-range-picker>
+				</div>
+
+				<!-- Actions -->
+				<div class="flex items-end space-x-4">
+					<button
+						(click)="clearFilters()"
+						class="px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 flex items-center space-x-2"
+					>
+						<span nz-icon nzType="clear" nzTheme="outline"></span>
+						<span>Limpiar Filtros</span>
+					</button>
+
+					<button
+						(click)="downloadPDF()"
+						class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 flex items-center space-x-2"
+					>
+						<span nz-icon nzType="file-pdf" nzTheme="outline"></span>
+						<span>Exportar PDF</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Table Section -->
+	<div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+		<nz-table
+			#basicTable
+			[nzData]="informe"
+			[nzLoading]="loading"
+			[nzTotal]="total"
+			[nzPageSize]="limit"
+			[nzFrontPagination]="false"
+			(nzPageIndexChange)="onPageChange($event)"
+			nzShowSizeChanger
+			[nzShowQuickJumper]="true"
+			[nzBordered]="true"
+		>
+			<thead>
+				<tr>
+					<th nzWidth="150px">N° Documento</th>
+					<th nzWidth="200px">Proveedor</th>
+					<th nzWidth="150px">Fecha</th>
+					<th nzWidth="150px">Método Pago</th>
+					<th nzWidth="120px">Subtotal</th>
+					<th nzWidth="120px">IGV</th>
+					<th nzWidth="120px">Total</th>
+					<th nzWidth="200px">Comentario</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				@for (item of informe; track item.id_compra) {
+					<tr>
+						<td>{{ item.numero_documento }}</td>
+						<td>{{ obtenerNombreProveedor(item) }}</td>
+
+						<!-- <td>{{ item.tb_proveedores.tb_personas.nombres }}</td> -->
+						<td>{{ item.fecha_compra | date: 'dd/MM/yyyy' }}</td>
+						<td>{{ item.tb_metodo_pago.nombre_metodo_pago }}</td>
+						<td class="text-right">{{ item.compra_subtotal | peruvianCurrency }}</td>
+						<td class="text-right">{{ item.compra_igv | peruvianCurrency }}</td>
+						<td class="text-right">{{ item.compra_total | peruvianCurrency }}</td>
+						<td>{{ item.compra_comentario }}</td>
+					</tr>
+				}
+			</tbody>
+		</nz-table>
+
+		<!-- Total Records -->
+		<div class="p-4 border-t border-gray-200">
+			<p class="text-right text-sm text-gray-600">
+				<strong>Total de registros: {{ total }}</strong>
+			</p>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,103 @@
+<div class="container mx-auto p-6 max-w-2xl">
+	<h1 class="text-2xl font-bold mb-6 text-center">Encuesta de Satisfacción</h1>
+
+	<form [formGroup]="encuestaForm" (ngSubmit)="onSubmit()" class="space-y-6">
+		<!-- Calificación General -->
+		<div class="form-group">
+			<label class="block text-sm font-medium mb-2">Calificación General del Sistema</label>
+			<select formControlName="calificacion_general" class="w-full p-2 border rounded-md">
+				<option value="">Seleccione una calificación</option>
+				<option *ngFor="let num of [1, 2, 3, 4, 5]" [value]="num">{{ num }} - {{ getRatingLabel(num) }}</option>
+			</select>
+			<div
+				*ngIf="
+					encuestaForm.get('calificacion_general')?.touched &&
+					encuestaForm.get('calificacion_general')?.errors?.['required']
+				"
+				class="text-red-500 text-sm mt-1"
+			>
+				Este campo es requerido
+			</div>
+		</div>
+		<!-- Recomendación -->
+		<div class="form-group">
+			<label class="block text-sm font-medium mb-2">¿Recomendaría nuestro sistema?</label>
+			<div class="flex gap-4">
+				<label class="flex items-center">
+					<input type="radio" formControlName="recomendacion" [value]="1" class="mr-2" />
+					Sí
+				</label>
+				<label class="flex items-center">
+					<input type="radio" formControlName="recomendacion" [value]="0" class="mr-2" />
+					No
+				</label>
+			</div>
+			<div
+				*ngIf="encuestaForm.get('recomendacion')?.touched && encuestaForm.get('recomendacion')?.errors?.['required']"
+				class="text-red-500 text-sm mt-1"
+			>
+				Este campo es requerido
+			</div>
+		</div>
+
+		<!-- Calificaciones numéricas -->
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+			<div class="form-group" *ngFor="let rating of ratingFields">
+				<label class="block text-sm font-medium mb-2">{{ rating.label }}</label>
+				<select [formControlName]="rating.name" class="w-full p-2 border rounded-md">
+					<option value="">Seleccione una calificación</option>
+					<option *ngFor="let num of [1, 2, 3, 4, 5]" [value]="num">{{ num }} - {{ getRatingLabel(num) }}</option>
+				</select>
+				<div
+					*ngIf="encuestaForm.get(rating.name)?.touched && encuestaForm.get(rating.name)?.errors?.['required']"
+					class="text-red-500 text-sm mt-1"
+				>
+					Este campo es requerido
+				</div>
+			</div>
+		</div>
+
+		<!-- Funcionamiento del sistema -->
+		<div class="form-group">
+			<label class="block text-sm font-medium mb-2">Observaciones sobre el funcionamiento del sistema</label>
+			<textarea
+				formControlName="funcionamiento_sistema"
+				class="w-full p-2 border rounded-md h-24"
+				placeholder="Describa su experiencia con el funcionamiento del sistema"
+			></textarea>
+			<div
+				*ngIf="
+					encuestaForm.get('funcionamiento_sistema')?.touched &&
+					encuestaForm.get('funcionamiento_sistema')?.errors?.['required']
+				"
+				class="text-red-500 text-sm mt-1"
+			>
+				Este campo es requerido
+			</div>
+		</div>
+
+		<!-- Comentarios adicionales -->
+		<div class="form-group">
+			<label class="block text-sm font-medium mb-2">Comentarios adicionales</label>
+			<textarea
+				formControlName="comentarios"
+				class="w-full p-2 border rounded-md h-24"
+				placeholder="Comparta cualquier comentario adicional"
+			></textarea>
+			<div
+				*ngIf="encuestaForm.get('comentarios')?.touched && encuestaForm.get('comentarios')?.errors?.['required']"
+				class="text-red-500 text-sm mt-1"
+			>
+				Este campo es requerido
+			</div>
+		</div>
+
+		<button
+			type="submit"
+			class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
+			[disabled]="encuestaForm.invalid || isSubmitting"
+		>
+			{{ isSubmitting ? 'Enviando...' : 'Enviar Encuesta' }}
+		</button>
+	</form>
+</div>

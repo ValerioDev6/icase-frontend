@@ -1,0 +1,42 @@
+<div class="container mx-auto px-4 py-8 max-w-xl">
+	<button
+		(click)="descargarCsvPrueba()"
+		class="w-full py-3 flex items-center justify-center space-x-3 transition-all duration-300 ease-in-out rounded-lg group text-white font-semibold text-base bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 focus:outline-none focus:ring-4 focus:ring-green-300"
+	>
+		<span nz-icon nzType="download" class="transform transition-transform duration-300 group-hover:scale-110"></span>
+		<span>Descargar CSV de Prueba</span>
+	</button>
+	<div class="p-8 text-center">
+		<div class="flex flex-col items-center justify-center space-y-6">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-24 h-24">
+				<!-- Tu SVG icon aquí -->
+			</svg>
+
+			<div class="text-center">
+				<h2 class="text-2xl font-bold text-gray-800 mb-2">Importación de Documentos</h2>
+				<p class="text-gray-500 mb-6">Sube tus archivos de Excel o CSV de manera segura y rápida</p>
+			</div>
+
+			<div class="w-full space-y-4">
+				<nz-upload [nzBeforeUpload]="beforeUpload" [nzShowUploadList]="false" nzAccept=".csv,.xlsx,.xls" class="w-full">
+					<button
+						nz-button
+						[disabled]="uploading"
+						class="w-full py-3 flex items-center justify-center space-x-3 transition-all duration-300 ease-in-out rounded-lg group text-white font-semibold text-base bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-50 disabled:cursor-not-allowed"
+					>
+						<span
+							nz-icon
+							[nzType]="uploading ? 'loading' : 'cloud-upload'"
+							class="transform transition-transform duration-300 group-hover:scale-110"
+						></span>
+						<span>
+							{{ uploading ? 'Subiendo documento...' : 'Importar Documento' }}
+						</span>
+					</button>
+				</nz-upload>
+
+				<p class="text-xs text-gray-400 mt-2">Formatos soportados: CSV, XLSX, XLS · Máximo 10MB</p>
+			</div>
+		</div>
+	</div>
+</div>

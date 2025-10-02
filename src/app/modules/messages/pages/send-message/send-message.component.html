@@ -1,0 +1,112 @@
+<div>
+	<nz-breadcrumb class="font-bold text-sm text-white" [nzAutoGenerate]="true"> </nz-breadcrumb>
+</div>
+<div class="min-h-screen bg-[#efeae2]">
+	<!-- Header fijo -->
+	<div class="bg-[#075e54] text-white px-4 py-3 fixed top-0 w-full shadow-md">
+		<div class="max-w-5xl mx-auto flex items-center gap-4">
+			<i nz-icon nzType="arrow-left" nzTheme="outline" class="text-xl"></i>
+			<span class="text-lg font-semibold">WhatsApp Direct</span>
+		</div>
+	</div>
+
+	<!-- Contenido principal -->
+	<div class="max-w-5xl mx-auto pt-16 p-4">
+		<!-- Paso 1: Ingresar número -->
+		@if (!phoneNumber) {
+			<div class="bg-white rounded-lg shadow-lg p-6 max-w-lg mx-auto mt-8">
+				<div class="space-y-6">
+					<div class="text-center">
+						<i nz-icon nzType="whats-app" nzTheme="outline" class="text-[#25d366] text-4xl mb-4"></i>
+						<h2 class="text-2xl font-bold text-[#075e54]">WhatsApp Directo</h2>
+						<p class="text-gray-600 mt-2">Ingresa el número para comenzar a chatear</p>
+					</div>
+
+					<div class="space-y-4">
+						<div class="relative bg-gray-50 rounded-lg">
+							<span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">+</span>
+							<input
+								nz-input
+								[(ngModel)]="inputPhoneNumber"
+								class="pl-8 py-3 text-lg border-2 border-gray-100 focus:border-[#25d366] rounded-lg"
+								placeholder="51999999999"
+							/>
+						</div>
+						<button
+							class="w-full py-3 bg-[#25d366] hover:bg-[#1fab54] text-white rounded-lg font-medium text-lg transition-colors"
+							[disabled]="!inputPhoneNumber"
+							(click)="setPhoneNumber()"
+						>
+							Comenzar chat
+						</button>
+					</div>
+				</div>
+			</div>
+		}
+
+		<!-- Paso 2: Chat -->
+		@if (phoneNumber) {
+			<div class="bg-white rounded-lg shadow-lg overflow-hidden">
+				<!-- Chat header -->
+				<div class="bg-[#075e54] text-white p-4 flex justify-between items-center">
+					<div class="flex items-center gap-3">
+						<div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+							<i nz-icon nzType="user" nzTheme="outline" class="text-xl"></i>
+						</div>
+						<div>
+							<h2 class="font-medium">+{{ phoneNumber }}</h2>
+							<span class="text-sm opacity-80">en línea</span>
+						</div>
+					</div>
+					<button class="hover:bg-[#0c8072] p-2 rounded-full transition-colors" (click)="changeNumber()">
+						<i nz-icon nzType="close" nzTheme="outline"></i>
+					</button>
+				</div>
+
+				<!-- Chat messages area -->
+				<div
+					class="h-[600px] bg-[#e0e0de] p-6 overflow-y-auto"
+					style="
+						background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABbSURBVDiNY/z//z8DNQETlKYZGBlJN5CRkZFBXl4ew7B79+4xMDEx0c/Lw9PAf//+Mdw/fp3hmZQVw9uNOxjoZ+C/fwwvP75jePLhNcPPD28Z6BfLjIwMQPkQAKz6IhfNwOvRAAAAAElFTkSuQmCC');
+					"
+				>
+					@for (msg of messages; track msg.id) {
+						<div class="mb-3 flex" [class.justify-end]="msg.sent">
+							<div
+								class="max-w-[80%] p-3 rounded-lg shadow relative"
+								[class]="
+									msg.sent ? 'bg-[#dcf8c6] text-gray-800 rounded-tr-none' : 'bg-white text-gray-800 rounded-tl-none'
+								"
+							>
+								{{ msg.text }}
+								<span class="text-xs text-gray-500 block mt-1">12:00 PM</span>
+							</div>
+						</div>
+					}
+				</div>
+
+				<!-- Chat input area -->
+				<div class="bg-[#f0f0f0] p-3 flex items-center gap-2">
+					<div class="flex-1 bg-white rounded-full shadow-sm flex items-center">
+						<i nz-icon nzType="smile" nzTheme="outline" class="text-xl text-gray-500 ml-4"></i>
+						<input
+							nz-input
+							[(ngModel)]="currentMessage"
+							class="flex-1 border-none py-2 px-4"
+							placeholder="Escribe un mensaje"
+							(keyup.enter)="sendMessage()"
+						/>
+						<i nz-icon nzType="paper-clip" nzTheme="outline" class="text-xl text-gray-500 mr-4"></i>
+					</div>
+					<button
+						class="w-12 h-12 bg-[#25d366] hover:bg-[#1fab54] text-white rounded-full flex items-center justify-center"
+						[disabled]="!currentMessage"
+						(click)="sendMessage()"
+					>
+						<i nz-icon nzType="send" nzTheme="outline"></i>
+					</button>
+				</div>
+			</div>
+		}
+	</div>
+</div>

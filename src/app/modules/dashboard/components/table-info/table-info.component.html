@@ -1,0 +1,35 @@
+<div class="bg-white shadow-lg rounded-lg p-6">
+	<div class="flex items-center mb-4">
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke-width="1.5"
+			stroke="currentColor"
+			class="w-6 h-6 mr-3 text-green-600"
+		>
+			<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306 11.355-11.355" />
+		</svg>
+		<h2 class="text-xl font-bold text-gray-800">Top 5 Productos Más Vendidos</h2>
+	</div>
+
+	@if (articulosTop.length > 0) {
+		<div class="space-y-3">
+			@for (producto of articulosTop; track producto.id_producto; let i = $index) {
+				<div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+					<div class="flex items-center">
+						<span class="mr-3 font-bold text-gray-600"> #{{ i + 1 }} </span>
+						<span class="font-medium text-gray-800">
+							{{ producto.nombre }}
+						</span>
+					</div>
+					<div class="flex items-center">
+						<span class="text-green-600 font-semibold ml-4"> {{ producto._sum.cantidad }} vendidos </span>
+					</div>
+				</div>
+			}
+		</div>
+	} @else {
+		<div class="text-center text-gray-500">No hay productos para mostrar</div>
+	}
+</div>

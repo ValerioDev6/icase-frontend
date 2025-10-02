@@ -1,0 +1,95 @@
+<div class="p-6">
+	<form [formGroup]="formGroup" (ngSubmit)="onUpdatePermisos()" class="space-y-6">
+		<!-- Selección de Rol -->
+		<div class="grid gap-2">
+			<label class="text-sm font-medium">Rol *</label>
+			<select formControlName="id_rol" class="w-full p-2 border rounded">
+				<option value="">Seleccione un rol</option>
+				<option *ngFor="let rol of roles" [value]="rol.id_rol">
+					{{ rol.nombre_rol }}
+				</option>
+			</select>
+			<div
+				class="text-red-500 text-sm"
+				*ngIf="formGroup.get('id_rol')?.errors?.['required'] && formGroup.get('id_rol')?.touched"
+			>
+				El rol es requerido
+			</div>
+		</div>
+
+		<!-- Selección de Módulo -->
+		<div class="grid gap-2">
+			<label class="text-sm font-medium">Módulo *</label>
+			<select formControlName="id_modulo" class="w-full p-2 border rounded">
+				<option value="">Seleccione un módulo</option>
+				<option *ngFor="let modulo of modulos" [value]="modulo.id_modulo">
+					{{ modulo.nombre_modulo }}
+				</option>
+			</select>
+			<div
+				class="text-red-500 text-sm"
+				*ngIf="formGroup.get('id_modulo')?.errors?.['required'] && formGroup.get('id_modulo')?.touched"
+			>
+				El módulo es requerido
+			</div>
+		</div>
+
+		<!-- Permisos -->
+		<div class="grid gap-4">
+			<label class="text-sm font-medium">Permisos</label>
+			<div class="grid grid-cols-2 md:grid-cols-2 gap-4">
+				<!-- Crear -->
+				<div class="flex items-center space-x-2">
+					<label class="switch">
+						<input type="checkbox" formControlName="puede_crear" (change)="onPermisoChange('puede_crear', $event)" />
+						<span class="slider round"></span>
+					</label>
+					<span class="text-sm">Puede Crear</span>
+				</div>
+
+				<!-- Leer -->
+				<div class="flex items-center space-x-2">
+					<label class="switch">
+						<input type="checkbox" formControlName="puede_leer" (change)="onPermisoChange('puede_leer', $event)" />
+						<span class="slider round"></span>
+					</label>
+					<span class="text-sm">Puede Leer</span>
+				</div>
+
+				<!-- Actualizar -->
+				<div class="flex items-center space-x-2">
+					<label class="switch">
+						<input
+							type="checkbox"
+							formControlName="puede_actualizar"
+							(change)="onPermisoChange('puede_actualizar', $event)"
+						/>
+						<span class="slider round"></span>
+					</label>
+					<span class="text-sm">Puede Actualizar</span>
+				</div>
+
+				<!-- Eliminar -->
+				<div class="flex items-center space-x-2">
+					<label class="switch">
+						<input
+							type="checkbox"
+							formControlName="puede_eliminar"
+							(change)="onPermisoChange('puede_eliminar', $event)"
+						/>
+						<span class="slider round"></span>
+					</label>
+					<span class="text-sm">Puede Eliminar</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Botones -->
+		<div class="flex justify-end space-x-4 pt-4">
+			<button type="button" class="px-4 py-2 border rounded" (click)="cancelar()">Cancelar</button>
+			<button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded" [disabled]="formGroup.invalid">
+				Guardar
+			</button>
+		</div>
+	</form>
+</div>

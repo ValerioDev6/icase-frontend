@@ -1,0 +1,6 @@
+nombre_producto,descripcion,stock,id_categoria,id_marca,precio_compra,precio_venta,id_sucursal,id_tipo_propietario
+Galaxy S23,Smartphone de alta gama con pantalla AMOLED,50,0f5fdc63-83cd-11ef-8655-00e04cf010f7,a1f2057a-83cc-11ef-8655-00e04cf010f7,800.0,1000.0,25955d78-8981-11ef-baca-00e04cf010f7,c7b48bf3-8b6b-11ef-893b-00e04cf010f7
+Galaxy A54,Smartphone de gama media con excelente cámara,100,0f5fdc63-83cd-11ef-8655-00e04cf010f7,a1f2057a-83cc-11ef-8655-00e04cf010f7,300.0,450.0,25955d78-8981-11ef-baca-00e04cf010f7,c7b48bf3-8b6b-11ef-893b-00e04cf010f7
+Galaxy Z Flip 5,Teléfono plegable con pantalla innovadora,30,0f5fdc63-83cd-11ef-8655-00e04cf010f7,a1f2057a-83cc-11ef-8655-00e04cf010f7,900.0,1200.0,25955d78-8981-11ef-baca-00e04cf010f7,c7b48bf3-8b6b-11ef-893b-00e04cf010f7
+Galaxy Tab S9,Tablet de alto rendimiento para productividad,20,0f5fdc63-83cd-11ef-8655-00e04cf010f7,a1f2057a-83cc-11ef-8655-00e04cf010f7,600.0,750.0,25955d78-8981-11ef-baca-00e04cf010f7,c7b48bf3-8b6b-11ef-893b-00e04cf010f7
+Galaxy Watch 6,Reloj inteligente con múltiples funciones de salud,70,0f5fdc63-83cd-11ef-8655-00e04cf010f7,a1f2057a-83cc-11ef-8655-00e04cf010f7,250.0,350.0,25955d78-8981-11ef-baca-00e04cf010f7,c7b48bf3-8b6b-11ef-893b-00e04cf010f7

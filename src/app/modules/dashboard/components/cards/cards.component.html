@@ -1,0 +1,70 @@
+<div class="max-w-lg">
+	<!-- Ventas Hoy -->
+	<div class="bg-white shadow-lg rounded-xl p-6 transform transition-all hover:scale-105 hover:shadow-2xl md:my-4">
+		<div class="flex justify-between items-center mb-4">
+			<div class="flex items-center">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="black">
+					<text x="2" y="18" font-size="16" font-family="Arial, sans-serif" font-weight="bold">S/</text>
+				</svg>
+
+				<h3 class="text-lg font-semibold text-gray-700">Ventas Hoy</h3>
+			</div>
+			<span class="text-sm text-gray-500"> {{ ventasData?.ventas_hoy?.total_ventas || 0 }} ventas </span>
+		</div>
+		<div class="text-2xl font-bold text-green-600">
+			{{ ventasData?.ventas_hoy?.monto_total || 0 | peruvianCurrency }}
+		</div>
+	</div>
+
+	<!-- Ventas Semana -->
+	<div class="bg-white shadow-lg rounded-xl p-6 transform transition-all hover:scale-105 hover:shadow-2xl md:my-4">
+		<div class="flex justify-between items-center mb-4">
+			<div class="flex items-center">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-8 w-8 text-purple-500 mr-3"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M8 7V3m8 4V3m-9 8h10M5 11h14a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2z"
+					/>
+				</svg>
+				<h3 class="text-lg font-semibold text-gray-700">Ventas Semana</h3>
+			</div>
+		</div>
+		<div class="text-2xl font-bold text-purple-600">
+			{{ ventasData?.ventas_semana?.monto_total || 0 | peruvianCurrency }}
+		</div>
+	</div>
+
+	<!-- Ventas Mes -->
+	<div class="bg-white shadow-lg rounded-xl p-6 transform transition-all hover:scale-105 hover:shadow-2xl md:my-4">
+		<div class="flex justify-between items-center mb-4">
+			<div class="flex items-center">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-8 w-8 text-red-500 mr-3"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2zM10 8.5a.5.5 0 11-1 0 .5.5 0 011 0zm4 5a.5.5 0 11-1 0 .5.5 0 011 0z"
+					/>
+				</svg>
+				<h3 class="text-lg font-semibold text-gray-700">Ventas Mes</h3>
+			</div>
+		</div>
+		<div class="text-2xl font-bold text-red-600">
+			{{ ventasData?.ventas_mes?.monto_total || 0 | peruvianCurrency }}
+		</div>
+	</div>
+</div>

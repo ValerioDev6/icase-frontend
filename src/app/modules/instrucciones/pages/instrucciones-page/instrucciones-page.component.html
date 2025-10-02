@@ -1,0 +1,131 @@
+<nz-breadcrumb class="text-sm text-gray-600 mb-4" [nzAutoGenerate]="true"> </nz-breadcrumb>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 p-6">
+	<!-- prueba -->
+	<!-- <nz-card class="hover:shadow-lg transition-shadow">
+		<div class="flex items-center justify-between mb-4">
+			<h2 class="text-lg font-semibold text-blue-700">Manual de Clientes</h2>
+			<span nz-icon nzType="file-pdf" nzTheme="fill" class="text-red-500 text-2xl"></span>
+		</div>
+		<p class="text-gray-600 mb-4">Manual de gestión y administración de clientes del sistema.</p>
+
+		<button
+			*appHasPermission="{ module: 'instrucciones', action: 'leer' }"
+			nz-button
+			nzType="primary"
+			class="w-full flex items-center justify-center"
+		>
+			<span nz-icon nzType="eye" nzTheme="outline" class="mr-2"></span>
+			Ver Manual
+		</button>
+	</nz-card> -->
+
+	<!-- Clientes -->
+	<nz-card class="hover:shadow-lg transition-shadow">
+		<div class="flex items-center justify-between mb-4">
+			<h2 class="text-lg font-semibold text-blue-700">Manual de Clientes</h2>
+			<span nz-icon nzType="file-pdf" nzTheme="fill" class="text-red-500 text-2xl"></span>
+		</div>
+		<p class="text-gray-600 mb-4">Manual de gestión y administración de clientes del sistema.</p>
+		<button nz-button nzType="primary" (click)="openClientesManual()" class="w-full flex items-center justify-center">
+			<span nz-icon nzType="eye" nzTheme="outline" class="mr-2"></span>
+			Ver Manual
+		</button>
+	</nz-card>
+
+	<!-- Compras -->
+	<nz-card class="hover:shadow-lg transition-shadow">
+		<div class="flex items-center justify-between mb-4">
+			<h2 class="text-lg font-semibold text-blue-700">Manual de Compras</h2>
+			<span nz-icon nzType="file-pdf" nzTheme="fill" class="text-red-500 text-2xl"></span>
+		</div>
+		<p class="text-gray-600 mb-4">Guía completa del proceso de compras y adquisiciones.</p>
+		<button nz-button nzType="primary" (click)="openComprasManual()" class="w-full flex items-center justify-center">
+			<span nz-icon nzType="eye" nzTheme="outline" class="mr-2"></span>
+			Ver Manual
+		</button>
+	</nz-card>
+
+	<!-- Informes -->
+	<nz-card class="hover:shadow-lg transition-shadow">
+		<div class="flex items-center justify-between mb-4">
+			<h2 class="text-lg font-semibold text-blue-700">Manual de Informes</h2>
+			<span nz-icon nzType="file-pdf" nzTheme="fill" class="text-red-500 text-2xl"></span>
+		</div>
+		<p class="text-gray-600 mb-4">Instrucciones para generación y gestión de informes.</p>
+		<button nz-button nzType="primary" (click)="openInformesManual()" class="w-full flex items-center justify-center">
+			<span nz-icon nzType="eye" nzTheme="outline" class="mr-2"></span>
+			Ver Manual
+		</button>
+	</nz-card>
+
+	<!-- Productos -->
+	<nz-card class="hover:shadow-lg transition-shadow">
+		<div class="flex items-center justify-between mb-4">
+			<h2 class="text-lg font-semibold text-blue-700">Manual de Productos</h2>
+			<span nz-icon nzType="file-pdf" nzTheme="fill" class="text-red-500 text-2xl"></span>
+		</div>
+		<p class="text-gray-600 mb-4">Gestión del catálogo y control de productos.</p>
+		<button nz-button nzType="primary" (click)="openProductosManual()" class="w-full flex items-center justify-center">
+			<span nz-icon nzType="eye" nzTheme="outline" class="mr-2"></span>
+			Ver Manual
+		</button>
+	</nz-card>
+
+	<!-- Recomendaciones -->
+	<nz-card class="hover:shadow-lg transition-shadow">
+		<div class="flex items-center justify-between mb-4">
+			<h2 class="text-lg font-semibold text-blue-700">Manual de Recomendaciones</h2>
+			<span nz-icon nzType="file-pdf" nzTheme="fill" class="text-red-500 text-2xl"></span>
+		</div>
+		<p class="text-gray-600 mb-4">Sistema de recomendaciones y feedback de usuarios.</p>
+		<button
+			nz-button
+			nzType="primary"
+			(click)="openRecomendacionesManual()"
+			class="w-full flex items-center justify-center"
+		>
+			<span nz-icon nzType="eye" nzTheme="outline" class="mr-2"></span>
+			Ver Manual
+		</button>
+	</nz-card>
+
+	<!-- Sucursales -->
+	<nz-card class="hover:shadow-lg transition-shadow">
+		<div class="flex items-center justify-between mb-4">
+			<h2 class="text-lg font-semibold text-blue-700">Manual de Sucursales</h2>
+			<span nz-icon nzType="file-pdf" nzTheme="fill" class="text-red-500 text-2xl"></span>
+		</div>
+		<p class="text-gray-600 mb-4">Administración y gestión de sucursales.</p>
+		<button nz-button nzType="primary" (click)="openSucursalesManual()" class="w-full flex items-center justify-center">
+			<span nz-icon nzType="eye" nzTheme="outline" class="mr-2"></span>
+			Ver Manual
+		</button>
+	</nz-card>
+
+	<!-- Usuarios -->
+	<nz-card class="hover:shadow-lg transition-shadow">
+		<div class="flex items-center justify-between mb-4">
+			<h2 class="text-lg font-semibold text-blue-700">Manual de Usuarios</h2>
+			<span nz-icon nzType="file-pdf" nzTheme="fill" class="text-red-500 text-2xl"></span>
+		</div>
+		<p class="text-gray-600 mb-4">Gestión de usuarios y control de accesos.</p>
+		<button nz-button nzType="primary" (click)="openUsuariosManual()" class="w-full flex items-center justify-center">
+			<span nz-icon nzType="eye" nzTheme="outline" class="mr-2"></span>
+			Ver Manual
+		</button>
+	</nz-card>
+
+	<!-- Ventas -->
+	<nz-card class="hover:shadow-lg transition-shadow">
+		<div class="flex items-center justify-between mb-4">
+			<h2 class="text-lg font-semibold text-blue-700">Manual de Ventas</h2>
+			<span nz-icon nzType="file-pdf" nzTheme="fill" class="text-red-500 text-2xl"></span>
+		</div>
+		<p class="text-gray-600 mb-4">Proceso completo de ventas y facturación.</p>
+		<button nz-button nzType="primary" (click)="openVentasManual()" class="w-full flex items-center justify-center">
+			<span nz-icon nzType="eye" nzTheme="outline" class="mr-2"></span>
+			Ver Manual
+		</button>
+	</nz-card>
+</div>

@@ -1,0 +1,122 @@
+<!-- Breadcrumb -->
+<div class="bg-white border-b">
+	<div class="container mx-auto px-4">
+		<nz-breadcrumb>
+			<nz-breadcrumb-item>Dashboard</nz-breadcrumb-item>
+			<nz-breadcrumb-item>Informes</nz-breadcrumb-item>
+			<nz-breadcrumb-item>Ventas</nz-breadcrumb-item>
+		</nz-breadcrumb>
+	</div>
+</div>
+
+<div class="container mx-auto py-6">
+	<div class="w-full bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+		<!-- Encabezado de la Sección -->
+		<div class="flex items-center space-x-3 mb-8 border-b border-gray-200 pb-4">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="w-8 h-8 text-blue-600"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59L3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
+				/>
+			</svg>
+			<h3 class="text-2xl font-bold text-gray-800">Informe de Ventas</h3>
+		</div>
+
+		<!-- Contenedor de Filtros -->
+		<div class="flex flex-col gap-4 md:flex-row md:items-end md:space-x-4 space-y-4 md:space-y-0">
+			<!-- Selector de Rango de Fechas -->
+			<div class="flex-grow">
+				<label class="block text-sm font-medium text-gray-700 mb-2"> Rango de Fechas </label>
+				<div class="relative">
+					<nz-range-picker
+						[(ngModel)]="dateRange"
+						(ngModelChange)="filterByDateRange()"
+						class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4 text-gray-700"
+						nzPlaceHolder="Seleccionar rango"
+						[nzPlaceHolder]="['Fecha inicio', 'Fecha fin']"
+					>
+					</nz-range-picker>
+				</div>
+			</div>
+
+			<!-- Botón de Limpiar -->
+			<button
+				(click)="downloadPDF()"
+				class="flex items-center justify-center px-4 py-2.5 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition-all duration-200 ease-in-out border border-red-300 hover:border-red-400 shadow-sm hover:shadow space-x-2"
+				nz-tooltip
+				nzTooltipTitle="Descargar PDF"
+			>
+				<span nz-icon nzType="file-pdf" nzTheme="fill" class="mr-2"></span>
+				<span class="text-sm font-medium">Descargar...</span>
+			</button>
+
+			<!-- Botón de Limpiar -->
+			<button
+				(click)="clearFilters()"
+				class="flex items-center justify-center px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-all duration-200 ease-in-out border border-gray-300 hover:border-gray-400 shadow-sm hover:shadow space-x-2"
+				nz-tooltip
+				nzTooltipTitle="Limpiar Filtros"
+			>
+				<span nz-icon nzType="delete" nzTheme="fill" class="mr-2"></span>
+				<span class="text-sm font-medium">Limpiar Filtros</span>
+			</button>
+		</div>
+	</div>
+
+	<div class="w-full overflow-hidden">
+		<nz-table
+			#basicTable
+			[nzData]="informe"
+			[nzLoading]="loading"
+			[nzPageSize]="limit"
+			[nzTotal]="total"
+			[nzFrontPagination]="false"
+			(nzPageIndexChange)="onPageChange($event)"
+			nzShowSizeChanger
+			[nzBordered]="true"
+			[nzShowQuickJumper]="true"
+			class="w-full overflow-x-auto"
+		>
+			<thead class="sticky top-0 z-10">
+				<tr class="bg-gray-100">
+					<th nzWidth="150px" nzLeft="0px" nzColumnKey="numero_documento" class="font-semibold text-gray-700">
+						N° Documento
+					</th>
+					<th nzWidth="200px" nzColumnKey="cliente" class="font-semibold text-gray-700">Cliente</th>
+					<th nzWidth="150px" nzColumnKey="fecha_venta" class="font-semibold text-gray-700">Fecha</th>
+					<th nzWidth="150px" nzColumnKey="metodo_pago" class="font-semibold text-gray-700">Método Pago</th>
+					<th nzWidth="120px" nzColumnKey="subtotal" class="font-semibold text-gray-700">Subtotal</th>
+					<th nzWidth="120px" nzColumnKey="impuesto" class="font-semibold text-gray-700">Impuesto</th>
+					<th nzWidth="120px" nzColumnKey="precio_total" class="font-semibold text-gray-700">Total</th>
+					<th nzWidth="120px" nzColumnKey="precio_total" class="font-semibold text-gray-700">PErsonal</th>
+				</tr>
+			</thead>
+			<tbody>
+				@for (item of informe; track item.id_venta) {
+					<tr>
+						<td nzLeft="0px">{{ item.numero_documento }}</td>
+						<td>{{ item.tb_cliente.tb_personas.nombres }}</td>
+						<td>{{ item.created_at | date: 'dd/MM/yyyy' }}</td>
+						<td>{{ item.tb_metodo_pago.nombre_metodo_pago }}</td>
+						<td>{{ item.subtotal | peruvianCurrency }}</td>
+						<td>{{ item.impuesto | peruvianCurrency }}</td>
+						<td>{{ item.precio_total | peruvianCurrency }}</td>
+						<td>{{ item.tb_personal.tb_personas.nombres }}</td>
+					</tr>
+				}
+			</tbody>
+		</nz-table>
+	</div>
+
+	<div class="mt-4 text-right text-sm text-gray-600">
+		<strong>Total de Movimientos: {{ total }}</strong>
+	</div>
+</div>

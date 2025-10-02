@@ -1,0 +1,148 @@
+<div>
+	<nz-breadcrumb class="font-bold text-sm" [nzAutoGenerate]="true"> </nz-breadcrumb>
+</div>
+<div class="container mx-auto py-6">
+	<div class="flex flex-col md:flex-row justify-between items-center mb-6">
+		<h3 class="text-xl font-semibold text-gray-800 mb-4 md:mb-0 flex items-center">Gestión de Roles</h3>
+
+		<div class="flex items-center space-x-4">
+			<nz-input-group [nzSuffix]="suffixIconSearch" class="w-64">
+				<input type="text" nz-input placeholder="Buscar roles" [(ngModel)]="search" (keyup.enter)="searchTo()" />
+			</nz-input-group>
+			<ng-template #suffixIconSearch>
+				<span nz-icon nzType="search"></span>
+			</ng-template>
+			<div class="flex">
+				<button
+					(click)="refreshRol()"
+					nz-tooltip
+					nzTooltipTitle="Refrescar"
+					class="flex items-center justify-center h-9 px-3 bg-[#22c55e] hover:bg-[#1ea352] transition-colors"
+				>
+					<span nz-icon nzType="sync" nzTheme="outline" class="text-white text-lg font-bold"></span>
+				</button>
+				<button
+					nz-tooltip
+					nzTooltipTitle="Descargar PDF"
+					class="flex items-center justify-center h-9 px-3 bg-red-500 hover:bg-red-600 transition-colors"
+				>
+					<span nz-icon nzType="file-pdf" nzTheme="fill" class="text-white text-lg font-bold"></span>
+				</button>
+				<button
+					nz-tooltip
+					nzTooltipTitle="Descargar Excel"
+					class="flex items-center justify-center h-9 px-3 bg-[#1D6F42] hover:bg-[#185c37] transition-colors"
+				>
+					<span nz-icon nzType="file-excel" nzTheme="fill" class="text-white text-lg font-bold"></span>
+				</button>
+				<button
+					(click)="openAgregarRolModal()"
+					class="flex items-center justify-center h-9 px-4 bg-[#6366f1] hover:bg-[#5558e4] transition-colors"
+				>
+					<span nz-icon nzType="plus-circle" nzTheme="fill" class="text-white text-lg font-bold mr-2"></span>
+					<span class="text-white font-medium">Crear</span>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<nz-table
+		#basicTable
+		[nzData]="roles"
+		[nzLoading]="loading"
+		[nzPageSize]="limit"
+		[nzTotal]="total"
+		[nzFrontPagination]="false"
+		(nzPageIndexChange)="onPageChange($event)"
+		nzShowSizeChanger
+		[nzShowQuickJumper]="true"
+	>
+		<thead>
+			<tr>
+				<th nzWidth="40px"></th>
+				<th>Rol</th>
+				<th>Descripción</th>
+				<th>Estado</th>
+				<th>Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for (rol of basicTable.data; track rol.id_rol) {
+				<tr>
+					<td [nzExpand]="expandSet.has(rol.id_rol)" (nzExpandChange)="onExpandChange(rol.id_rol, $event)"></td>
+					<td>{{ rol.nombre_rol }}</td>
+					<td>{{ rol.descripcion }}</td>
+					<td>
+						<nz-tag [nzColor]="rol.estado ? 'success' : 'error'">
+							{{ rol.estado ? 'Activo' : 'Inactivo' }}
+						</nz-tag>
+					</td>
+					<td class="flex gap-2">
+						<button nz-button nzType="primary" nzSize="small" (click)="openEditarModal(rol)">
+							<span nz-icon nzType="edit" nzTheme="fill"></span>
+						</button>
+						<button nz-button nzType="default" nzDanger nzSize="small" (click)="deleteRol(rol)">
+							<span nz-icon nzType="delete" nzTheme="fill"></span>
+						</button>
+					</td>
+				</tr>
+				<tr [nzExpand]="expandSet.has(rol.id_rol)">
+					<td colspan="5">
+						<div class="px-4 py-2">
+							<div class="flex justify-between mb-4">
+								<h3 class="text-lg font-semibold">Permisos del Rol</h3>
+								<button nz-button nzType="primary" (click)="openAgregarPermisosModal()">
+									<span nz-icon nzType="plus"></span>Nuevo Permiso
+								</button>
+							</div>
+
+							@for (permiso of rol.tb_permiso; track permiso.id_permiso) {
+								<div class="bg-gray-50 rounded p-4 mb-2">
+									<div class="flex justify-between items-center mb-2">
+										<h4 class="font-medium">{{ permiso.tb_modulo.nombre_modulo }}</h4>
+										<div class="flex gap-2">
+											<button (click)="openEditarPermisoModal(permiso)" nz-button nzType="primary" nzSize="small">
+												<span nz-icon nzType="edit"></span>
+											</button>
+											<button
+												(click)="delelePermiso(permiso.id_permiso)"
+												nz-button
+												nzType="default"
+												nzDanger
+												nzSize="small"
+											>
+												<span nz-icon nzType="delete"></span>
+											</button>
+										</div>
+									</div>
+									<div class="flex flex-wrap gap-4">
+										<nz-tag [nzColor]="permiso.puede_crear ? 'processing' : 'default'" class="cursor-pointer">
+											<span nz-icon nzType="plus-circle" class="mr-1"></span>
+											Crear
+										</nz-tag>
+										<nz-tag [nzColor]="permiso.puede_leer ? 'success' : 'default'" class="cursor-pointer">
+											<span nz-icon nzType="eye" class="mr-1"></span>
+											Leer
+										</nz-tag>
+										<nz-tag [nzColor]="permiso.puede_actualizar ? 'warning' : 'default'" class="cursor-pointer">
+											<span nz-icon nzType="edit" class="mr-1"></span>
+											Actualizar
+										</nz-tag>
+										<nz-tag [nzColor]="permiso.puede_eliminar ? 'error' : 'default'" class="cursor-pointer">
+											<span nz-icon nzType="delete" class="mr-1"></span>
+											Eliminar
+										</nz-tag>
+									</div>
+								</div>
+							}
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</nz-table>
+
+	<div class="mt-4 text-right text-sm text-gray-600">
+		<strong>Total de Roles: {{ total }}</strong>
+	</div>
+</div>

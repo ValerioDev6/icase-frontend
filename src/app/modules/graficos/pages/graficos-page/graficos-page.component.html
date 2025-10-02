@@ -1,0 +1,69 @@
+<div>
+	<nz-breadcrumb class="font-bold text-sm" [nzAutoGenerate]="true"> </nz-breadcrumb>
+</div>
+
+<div class="flex flex-wrap justify-between gap-4 w-full my-10">
+	<div
+		class="flex-grow w-full md:w-[calc(50%-1rem)] bg-green-50 p-6 rounded-xl shadow-lg border border-green-200 hover:shadow-xl transition-all duration-300"
+	>
+		<div class="flex items-center mb-4">
+			<div class="bg-green-100 p-3 rounded-full mr-4">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-10 w-10 text-green-600"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+				</svg>
+			</div>
+			<div>
+				<h3 class="text-xl font-bold text-green-800">Total Ventas</h3>
+				<p class="text-sm text-green-600">Ingresos anuales generados</p>
+			</div>
+		</div>
+		<div class="flex justify-between items-end">
+			<p class="text-3xl font-extrabold text-green-700">S/ {{ totalVentas }}</p>
+		</div>
+	</div>
+
+	<div
+		class="flex-grow w-full md:w-[calc(50%-1rem)] bg-red-50 p-6 rounded-xl shadow-lg border border-red-200 hover:shadow-xl transition-all duration-300"
+	>
+		<div class="flex items-center mb-4">
+			<div class="bg-red-100 p-3 rounded-full mr-4">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-10 w-10 text-red-600"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+				</svg>
+			</div>
+			<div>
+				<h3 class="text-xl font-bold text-red-800">Total Compras</h3>
+				<p class="text-sm text-red-600">Egresos anuales realizados</p>
+			</div>
+		</div>
+		<div class="flex justify-between items-end">
+			<p class="text-3xl font-extrabold text-red-700">S/ {{ totalCompras }}</p>
+		</div>
+	</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+	<div>
+		<app-compras-anuales></app-compras-anuales>
+	</div>
+	<div>
+		<app-ventas-anuales></app-ventas-anuales>
+	</div>
+	<div>
+		<app-dounought-compras></app-dounought-compras>
+	</div>
+	<div>
+		<app-dounought-ventas></app-dounought-ventas>
+	</div>
+</div>

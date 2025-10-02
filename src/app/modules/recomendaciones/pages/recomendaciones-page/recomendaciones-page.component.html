@@ -1,0 +1,104 @@
+<div>
+	<nz-breadcrumb class="font-bold text-sm" [nzAutoGenerate]="true"> </nz-breadcrumb>
+</div>
+
+<div class="py-6">
+	<div class="flex flex-col md:flex-row justify-between items-center mb-6">
+		<h3 class="text-xl font-semibold text-gray-800 mb-4 md:mb-0 flex items-center">
+			<svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 32 32">
+				<path
+					fill="#000000"
+					d="m6.76 6l.45.89L7.76 8H12v5H4V6zm.62-2H3a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9l-.72-1.45a1 1 0 0 0-.9-.55m15.38 2l.45.89l.55 1.11H28v5h-8V6zm.62-2H19a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-4l-.72-1.45a1 1 0 0 0-.9-.55M6.76 19l.45.89l.55 1.11H12v5H4v-7zm.62-2H3a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1H9l-.72-1.45a1 1 0 0 0-.9-.55m15.38 2l.45.89l.55 1.11H28v5h-8v-7zm.62-2H19a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-4l-.72-1.45a1 1 0 0 0-.9-.55"
+				/>
+			</svg>
+			Encuesta Realizadas
+		</h3>
+
+		<div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
+			<div class="flex">
+				<button
+					(click)="refreshPage()"
+					nz-tooltip
+					nzTooltipTitle="Refrescar"
+					class="flex items-center justify-center h-9 px-3 bg-[#22c55e] hover:bg-[#1ea352] transition-colors"
+				>
+					<span nz-icon nzType="sync" nzTheme="outline" class="text-white text-lg font-bold"></span>
+				</button>
+			</div>
+		</div>
+	</div>
+	<nz-table
+		#basicTable
+		[nzData]="encuestas"
+		[nzLoading]="loading"
+		[nzPageSize]="limit"
+		[nzTotal]="total"
+		[nzFrontPagination]="false"
+		(nzPageIndexChange)="onPageChange($event)"
+		nzShowSizeChanger
+		[nzBordered]="true"
+		[nzShowQuickJumper]="true"
+	>
+		<thead>
+			<tr>
+				<th nzColumnKey="personal">Personal</th>
+				<th nzColumnKey="fecha">Fecha</th>
+				<th nzColumnKey="calificacion">Calificación General</th>
+				<th nzColumnKey="calidad">Calidad Sistema</th>
+				<th nzColumnKey="facilidad">Facilidad Uso</th>
+				<th nzColumnKey="atencion">Atención Cliente</th>
+				<th nzColumnKey="proceso">Proceso Venta</th>
+				<th nzColumnKey="recomendacion">Recomendación</th>
+				<th nzColumnKey="funcionamiento">Funcionamiento</th>
+				<th nzColumnKey="comentarios">Comentarios</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for (encuesta of basicTable.data; track encuesta.id_encuesta) {
+				<tr>
+					<td>{{ encuesta.tb_personal.email }}</td>
+					<td>{{ encuesta.fecha | date: 'MMM d, y' }}</td>
+					<td class="text-center">
+						<nz-tag [nzColor]="getCalificacionColor(encuesta.calificacion_general)">
+							{{ encuesta.calificacion_general }}/5
+						</nz-tag>
+					</td>
+					<td class="text-center">
+						<nz-tag [nzColor]="getCalificacionColor(encuesta.calidad_sistema)">
+							{{ encuesta.calidad_sistema }}/5
+						</nz-tag>
+					</td>
+					<td class="text-center">
+						<nz-tag [nzColor]="getCalificacionColor(encuesta.facilidad_uso)"> {{ encuesta.facilidad_uso }}/5 </nz-tag>
+					</td>
+					<td class="text-center">
+						<nz-tag [nzColor]="getCalificacionColor(encuesta.atencion_cliente)">
+							{{ encuesta.atencion_cliente }}/5
+						</nz-tag>
+					</td>
+					<td class="text-center">
+						<nz-tag [nzColor]="getCalificacionColor(encuesta.proceso_venta)"> {{ encuesta.proceso_venta }}/5 </nz-tag>
+					</td>
+					<td class="text-center">
+						<nz-tag [nzColor]="encuesta.recomendacion ? 'success' : 'error'">
+							{{ encuesta.recomendacion ? 'Sí' : 'No' }}
+						</nz-tag>
+					</td>
+					<td>
+						<span nz-tooltip [nzTooltipTitle]="encuesta.funcionamiento_sistema">
+							{{ encuesta.funcionamiento_sistema | slice: 0 : 20 }}...
+						</span>
+					</td>
+					<td>
+						<span nz-tooltip [nzTooltipTitle]="encuesta.comentarios">
+							{{ encuesta.comentarios | slice: 0 : 20 }}...
+						</span>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</nz-table>
+	<div class="mt-4 text-right text-sm text-gray-600">
+		<strong>Total de Roles: {{ total }}</strong>
+	</div>
+</div>
