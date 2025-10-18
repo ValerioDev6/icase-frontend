@@ -1,16 +1,16 @@
-import { Component, inject, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzGridModule } from 'ng-zorro-antd/grid';
-import { AuthService } from '../../../../core/services/common/auth.service';
-import Swal from 'sweetalert2';
-import { EMPTY, catchError, finalize } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, inject, viewChild } from '@angular/core';
+import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { EMPTY, catchError, finalize } from 'rxjs';
+import Swal from 'sweetalert2';
+import { AuthService } from '../../../../core/services/common/auth.service';
 import { RecapchaComponent } from '../../components/recapcha/recapcha.component';
 
 @Component({
@@ -32,7 +32,7 @@ import { RecapchaComponent } from '../../components/recapcha/recapcha.component'
 })
 export class LoginPageComponent {
 	private readonly _authService = inject(AuthService);
-	@ViewChild(RecapchaComponent) recaptcha!: RecapchaComponent;
+	readonly recaptcha = viewChild.required(RecapchaComponent);
 	passwordVisible = false;
 	isLoading = false;
 
@@ -52,7 +52,7 @@ export class LoginPageComponent {
 
 	submitForm(): void {
 		if (this.validateForm.valid) {
-			this.recaptcha.executeRecaptcha();
+			this.recaptcha().executeRecaptcha();
 		} else {
 			Object.values(this.validateForm.controls).forEach((control) => {
 				if (control.invalid) {

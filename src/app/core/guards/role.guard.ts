@@ -6,20 +6,20 @@ import { LocalStorageService } from '../services/storage/local-storage.service';
 import { ERole } from '../types/roles.enum';
 
 export const roleGuard: CanActivateFn = (route, _state) => {
-	const router: Router = inject(Router);
-	const _authService = inject(AuthService);
-	const _localStorageService = inject(LocalStorageService);
+  const router: Router = inject(Router);
+  const _authService = inject(AuthService);
+  const _localStorageService = inject(LocalStorageService);
 
-	const allowedRoles: ERole[] = route.data['allowedRoles'] || [];
+  const allowedRoles: ERole[] = route.data['allowedRoles'] || [];
 
-	return _authService.user$.pipe(
-		map((user) => {
-			if (user && allowedRoles.includes(user.tb_rol.nombre_rol as ERole)) {
-				return true;
-			}
-			_localStorageService.clearAuthData();
-			location.reload();
-			return router.createUrlTree(['/auth/login']);
-		})
-	);
+  return _authService.user$.pipe(
+    map((user) => {
+      if (user && allowedRoles.includes(user.tb_rol.nombre_rol as ERole)) {
+        return true;
+      }
+      _localStorageService.clearAuthData();
+      location.reload();
+      return router.createUrlTree(['/auth/login']);
+    })
+  );
 };

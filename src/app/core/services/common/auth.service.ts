@@ -1,12 +1,12 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { LocalStorageService } from '../storage/local-storage.service';
 import { BehaviorSubject, Observable, catchError, map, of, tap, throwError } from 'rxjs';
-import { IResponseSingIn, Personal } from '../../interfaces/login-response.interface';
-import { KEY_STORAGE, STATUS_USER } from '../../interfaces/storage.enum';
 import { URL_AUTH_CHECK_STATUS, URL_AUTH_SIGNIN } from '../../config/api/config.url';
 import { CheckStatusResponse } from '../../interfaces/get-status.interface';
+import { IResponseSingIn, Personal } from '../../interfaces/login-response.interface';
+import { KEY_STORAGE, STATUS_USER } from '../../interfaces/storage.enum';
+import { LocalStorageService } from '../storage/local-storage.service';
 
 @Injectable({
 	providedIn: 'root',
