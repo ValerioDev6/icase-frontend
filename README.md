@@ -428,41 +428,6 @@ ng lint --fix            # Corrige errores automáticamente
 
 
 
-## 🗺️ Rutas Principales
-
-```
-/auth/login                 - Login
-/admin                      - Layout principal
-  /dashboard                - Dashboard
-  /productos                - Gestión de productos
-    /lista                  - Lista de productos
-    /crear                  - Crear producto
-    /editar/:id            - Editar producto
-    /:id                   - Detalle de producto
-  /ventas                   - Gestión de ventas
-    /lista                  - Lista de ventas
-    /crear                  - Crear venta (POS)
-    /detalle/:id           - Detalle de venta
-  /compras                  - Gestión de compras
-    /lista                  - Lista de compras
-    /crear                  - Crear compra
-    /detalle/:id           - Detalle de compra
-  /inventario               - Control de inventario
-  /kardex                   - Kardex
-  /ajuste                   - Ajustes de inventario
-  /clientes                 - Gestión de clientes
-  /proveedores              - Gestión de proveedores
-  /personal                 - Gestión de personal
-  /roles                    - Roles y permisos
-  /categorias               - Categorías
-  /marcas                   - Marcas
-  /sucursales               - Sucursales
-  /graficos                 - Gráficos y reportes visuales
-  /informes                 - Informes por período
-  /chat                     - Chat con IA
-  /instrucciones            - Manuales de usuario
-```
-
 ## 🎨 Componentes Principales
 
 ### Dashboard
