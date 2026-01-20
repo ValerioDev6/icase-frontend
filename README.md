@@ -422,24 +422,11 @@ ng build                   # Build de desarrollo
 ng build --configuration production  # Build de producción
 npm run build             # Build de producción
 
-# Testing
-ng test                   # Ejecuta tests unitarios
-ng test --code-coverage   # Tests con cobertura
-ng e2e                    # Tests end-to-end
-
 # Linting
 ng lint                   # Ejecuta linter
 ng lint --fix            # Corrige errores automáticamente
 
-# Generación de componentes
-ng g c nombre-componente              # Componente completo
-ng g c nombre-componente --skip-tests # Sin archivos de testing
-ng g s nombre-servicio               # Servicio
-ng g m nombre-modulo                 # Módulo
-ng g guard nombre-guard              # Guard
-ng g pipe nombre-pipe                # Pipe
-ng g directive nombre-directive      # Directiva
-```
+
 
 ## 🗺️ Rutas Principales
 
